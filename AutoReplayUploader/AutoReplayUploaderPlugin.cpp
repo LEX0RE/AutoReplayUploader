@@ -17,7 +17,7 @@
 
 #include "bakkesmod/wrappers/wrapperstructs.h"
 
-BAKKESMOD_PLUGIN(AutoReplayUploaderPlugin, "Auto replay uploader plugin", "0.2", 0);
+BAKKESMOD_PLUGIN(AutoReplayUploaderPlugin, "Auto replay uploader plugin", "0.3", 0);
 
 // Constant CVAR variable names
 #define CVAR_REPLAY_EXPORT_PATH "cl_autoreplayupload_filepath"
@@ -32,6 +32,8 @@ BAKKESMOD_PLUGIN(AutoReplayUploaderPlugin, "Auto replay uploader plugin", "0.2",
 #define CVAR_BALLCHASING_AUTH_TEST_RESULT "cl_autoreplayupload_ballchasing_testkeyresult"
 #define CVAR_BALLCHASING_REPLAY_VISIBILITY "cl_autoreplayupload_ballchasing_visibility"
 #define CVAR_CALCULATED_REPLAY_VISIBILITY "cl_autoreplayupload_calculated_visibility"
+#define CVAR_UPLOAD_TO_SPECIFIC_WEBSITE "cl_autoreplayupload_specific_website"
+#define CVAR_SPECIFIC_WEBSITE_URL "cl_autoreplayupload_specific_website_url"
 
 Player ConstructPlayer(PriWrapper wrapper)
 {
@@ -278,6 +280,10 @@ void AutoReplayUploaderPlugin::InitializeVariables()
 			cvarManager->getCvar(CVAR_REPLAY_EXPORT_PATH).setValue(*exportPath);
 		}
 	});
+
+	// Specific Website Replay
+	cvarManager->registerCvar(CVAR_UPLOAD_TO_SPECIFIC_WEBSITE, "0", "Upload to replays to specified website automatically", true, true, 0, true, 1).bindTo(uploadToSpecificWebsite);
+	cvarManager->registerCvar(CVAR_SPECIFIC_WEBSITE_URL, DEFAULT_SPECIFIC_WEBSITE_URL, "Website to send replay to").bindTo(specificWebsiteURL);
 
 #ifdef TOAST
 	// Notification variables

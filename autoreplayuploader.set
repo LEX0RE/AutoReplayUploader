@@ -15,3 +15,6 @@ Auto replay uploader
 1|Save all replay files to export filepath below|cl_autoreplayupload_save
 12|Path to export replays to|cl_autoreplayupload_filepath
 9|Note: For this to work, you do NOT have to have "save all replays" enabled!
+8|
+1|Enable automatic replay for specific website|cl_autoreplayupload_specific_website
+12|Specific website URL|cl_autoreplayupload_specific_website_url

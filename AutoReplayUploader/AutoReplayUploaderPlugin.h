@@ -10,6 +10,7 @@
 
 #define DEAULT_EXPORT_PATH "./bakkesmod/data/"
 #define DEFAULT_REPLAY_NAME_TEMPLATE "{YEAR}-{MONTH}-{DAY}.{HOUR}.{MIN} {PLAYER} {MODE} {WINLOSS}"
+#define DEFAULT_SPECIFIC_WEBSITE_URL ""
 
 // TODO: uncomment or remove #ifdef's when new Bakkes mod API becomes available that has Toast notifications
 //#define TOAST
@@ -33,6 +34,10 @@ private:
 	// Export replay variables
 	std::shared_ptr<bool> saveReplay = std::make_shared<bool>(false);
 	std::shared_ptr<std::string> exportPath = std::make_shared<std::string>(DEAULT_EXPORT_PATH);
+
+	// Specific Website Replay
+	std::shared_ptr<bool> uploadToSpecificWebsite = std::make_shared<bool>(false);
+	std::shared_ptr<std::string> specificWebsiteURL = std::make_shared<std::string>(DEFAULT_SPECIFIC_WEBSITE_URL);
 
 	// Initializes all variables from bakkes mod settings menu
 	void InitializeVariables();
