@@ -11,6 +11,7 @@
 #include "Utils.h"
 #include "Ballchasing.h"
 #include "Calculated.h"
+#include "SpecificWebsite.h"
 #include "Match.h"
 #include "Player.h"
 #include "Replay.h"
@@ -162,11 +163,9 @@ void AutoReplayUploaderPlugin::onLoad()
 	// Setup upload handlers
 	ballchasing = new Ballchasing(userAgent, &Log, &BallchasingUploadComplete, &BallchasingAuthTestComplete, this);
 	calculated = new Calculated(userAgent, &Log, &CalculatedUploadComplete, this);
+	specificWebsite = new SpecificWebsite(userAgent, &Log, &CalculatedUploadComplete, this);
 
 	InitializeVariables();
-
-
-
 
 	// Register for Game ending event	
 	gameWrapper->HookEventWithCaller<ServerWrapper>(
@@ -300,7 +299,7 @@ void AutoReplayUploaderPlugin::InitializeVariables()
 */
 void AutoReplayUploaderPlugin::OnGameComplete(ServerWrapper caller, void * params, std::string eventName)
 {
-	if (!(*uploadToCalculated) && !(*uploadToBallchasing) && !(*saveReplay)) // Bail if we aren't uploading or saving replays
+	if (!(*uploadToCalculated) && !(*uploadToBallchasing) && !(*uploadToSpecificWebsite && *specificWebsiteURL != "") && !(*saveReplay)) // Bail if we aren't uploading or saving replays
 	{
 		return; //Not uploading replays
 	}
@@ -356,6 +355,10 @@ void AutoReplayUploaderPlugin::OnGameComplete(ServerWrapper caller, void * param
 	if (*uploadToCalculated)
 	{
 		calculated->UploadReplay(replayPath, playerSteamID);
+	}
+	if (*uploadToSpecificWebsite && *specificWebsiteURL != "")
+	{
+		specificWebsite->UploadReplay(replayPath, playerSteamID, *specificWebsiteURL);
 	}
 	if (*uploadToBallchasing)
 	{

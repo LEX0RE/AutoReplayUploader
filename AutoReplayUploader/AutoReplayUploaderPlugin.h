@@ -6,6 +6,7 @@
 
 #include "Ballchasing.h"
 #include "Calculated.h"
+#include "SpecificWebsite.h"
 
 
 #define DEAULT_EXPORT_PATH "./bakkesmod/data/"
@@ -21,6 +22,7 @@ private:
 	// Upload handlers
 	Ballchasing* ballchasing;
 	Calculated* calculated;
+	SpecificWebsite* specificWebsite;
 
 	// Which endpoints to upload to
 	std::shared_ptr<bool> uploadToCalculated = std::make_shared<bool>(false);

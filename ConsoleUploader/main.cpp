@@ -1,5 +1,6 @@
 #include "Ballchasing.h"
 #include "Calculated.h"
+#include "SpecificWebsite.h"
 #include "Utils.h"
 #include "Replay.h"
 
@@ -16,6 +17,11 @@ void SetVariable(void* object, std::string name, std::string value)
 void CalculatedUploadComplete(void* object, bool result)
 {
 	std::cout << "Calculated upload completed with result: " << result;
+}
+
+void SpecificWebsiteUploadComplete(void* object, bool result)
+{
+	std::cout << "Specific Website upload completed with result: " << result;
 }
 
 void BallchasingUploadComplete(void* object, bool result)
@@ -41,6 +47,10 @@ int main()
 	Calculated* calculated = new Calculated("consoleuploader", &Log, &CalculatedUploadComplete, NULL);
 	*(calculated->visibility) = "PUBLIC";
 	calculated->UploadReplay(replayFile, "76561198011976380");
+
+	SpecificWebsite* specificWebsite = new SpecificWebsite("consoleuploader", &Log, &SpecificWebsiteUploadComplete, NULL);
+	*(specificWebsite->visibility) = "PUBLIC";
+	specificWebsite->UploadReplay(replayFile, "76561198011976380", "https://us-east1-calculatedgg-217303.cloudfunctions.net/queue_replay");
 
 	system("PAUSE");
 }
